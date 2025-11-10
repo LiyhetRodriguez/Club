@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Tipografía Anicon Sans === */
+@import url('https://fonts.googleapis.com/css2?family=Anicon+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-bg: #0f0a06;
+  --color-text: #f6f3ed;
+  --color-accent: #b6945c;
+  --color-accent-light: #d8c3a5;
+  --color-accent-dark: #8a6b3f;
+}
+
+body {
+  font-family: 'Anicon Sans', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  letter-spacing: 0.2px;
+}
+
+/* Botón elegante */
+.btn-elegante {
+  background-color: var(--color-accent);
+  color: #2b1b0d;
+  border-radius: 9999px;
+  font-weight: 600;
+  padding: 0.9rem 2.5rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 25px rgba(182, 148, 92, 0.35);
+}
+
+.btn-elegante:hover {
+  background-color: var(--color-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(214, 175, 99, 0.45);
+}

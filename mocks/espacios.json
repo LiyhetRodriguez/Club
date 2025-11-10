@@ -1,0 +1,32 @@
+[
+  {
+    "id": "salon-mi-llanura",
+    "nombre": "Sal\u00f3n Mi Llanu\u0301ra",
+    "capacidad": 100,
+    "tarifaBase": 1550000,
+    "imagenes": [
+      "/hero.jpg"
+    ],
+    "descripcion": "Espacio elegante para eventos sociales y corporativos."
+  },
+  {
+    "id": "terraza-orinoquia",
+    "nombre": "Terraza Orinoqu\u00eda",
+    "capacidad": 80,
+    "tarifaBase": 950000,
+    "imagenes": [
+      "/hero.jpg"
+    ],
+    "descripcion": "Ambiente al aire libre con vista a zonas verdes."
+  },
+  {
+    "id": "zona-verde",
+    "nombre": "Zona Verde Central",
+    "capacidad": 150,
+    "tarifaBase": 1200000,
+    "imagenes": [
+      "/hero.jpg"
+    ],
+    "descripcion": "\u00c1reas abiertas para eventos masivos y ferias."
+  }
+]
