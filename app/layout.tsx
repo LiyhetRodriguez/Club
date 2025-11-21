@@ -1,5 +1,7 @@
 import "./globals.css";
-import Header from "../components/Header"; // ✅ ESTA ES LA CORRECTA
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import AOSInit from "../components/AOSInit";
 
 export const metadata = {
   title: "Club Meta",
@@ -10,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body>
-        <Header />
+        <AOSInit />
         {children}
       </body>
     </html>

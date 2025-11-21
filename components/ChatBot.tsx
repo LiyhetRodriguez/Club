@@ -1,14 +1,13 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X } from "lucide-react";
+import { MessageSquare, X, Send, Sparkles } from "lucide-react";
 
 export default function ChatBot() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState([
-    { from: "bot", text: "👋 ¡Hola! Soy el asistente virtual del Club El Meta." },
-    { from: "bot", text: "¿En qué puedo ayudarte hoy?" },
+    { from: "bot", text: "System Online. How may I assist you today?" },
   ]);
 
   const handleSend = () => {
@@ -20,8 +19,7 @@ export default function ChatBot() {
         ...prev,
         {
           from: "bot",
-          text:
-            "Puedo ayudarte con: 🗓️ reservas, 💰 cotizaciones o 📞 contacto directo con un asesor.",
+          text: "Request received. Connecting to concierge services...",
         },
       ]);
     }, 800);
@@ -29,56 +27,68 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* BURBUJA */}
+      {/* Floating Trigger */}
       <motion.button
-        className="fixed bottom-6 right-6 bg-[#0096C7] text-white p-4 rounded-full shadow-xl hover:scale-110 transition"
+        className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-white text-black flex items-center justify-center rounded-full shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform"
         onClick={() => setOpen(!open)}
-        animate={{ y: [0, -8, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
-        {open ? <X size={24} /> : <MessageCircle size={28} />}
+        {open ? <X size={20} /> : <MessageSquare size={20} />}
       </motion.button>
 
-      {/* VENTANA */}
+      {/* Chat Window */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            className="fixed bottom-24 right-6 w-80 bg-white/90 backdrop-blur-lg border border-gray-200 shadow-2xl rounded-2xl flex flex-col overflow-hidden"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="fixed bottom-28 right-8 w-[350px] bg-[#0A0A0A] border border-white/10 shadow-2xl z-50 overflow-hidden"
           >
-            <div className="bg-[#0096C7] text-white font-semibold p-3">
-              💬 Chat Asistente — Club El Meta
+            {/* Header */}
+            <div className="bg-black p-4 border-b border-white/10 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-xs font-bold tracking-widest uppercase text-white">META AI</span>
+              </div>
+              <Sparkles className="w-4 h-4 text-gray-500" />
             </div>
 
-            <div className="flex-1 p-3 overflow-y-auto space-y-2 text-sm">
+            {/* Messages */}
+            <div className="h-[300px] overflow-y-auto p-4 space-y-4 bg-[#050505]">
               {conversation.map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`p-2 rounded-xl ${
-                    msg.from === "bot"
-                      ? "bg-gray-100 text-gray-800 self-start"
-                      : "bg-[#0096C7] text-white self-end ml-auto"
-                  } max-w-[85%]`}
+                  className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  {msg.text}
+                  <div
+                    className={`max-w-[80%] p-3 text-xs font-medium leading-relaxed ${
+                      msg.from === "user"
+                        ? "bg-white text-black"
+                        : "bg-[#151515] text-gray-300 border border-white/5"
+                    }`}
+                  >
+                    {msg.text}
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div className="p-3 border-t border-gray-200 flex gap-2">
+            {/* Input */}
+            <div className="p-4 bg-black border-t border-white/10 flex gap-2">
               <input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="flex-1 text-sm border border-gray-300 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-[#0096C7]"
-                placeholder="Escribe un mensaje..."
+                className="flex-1 bg-[#151515] border border-white/10 text-white text-xs p-3 focus:outline-none focus:border-white/30 transition-colors"
+                placeholder="Type command..."
+                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               />
               <button
                 onClick={handleSend}
-                className="bg-[#0096C7] text-white px-3 py-2 rounded-xl hover:bg-[#00B4D8]"
+                className="bg-white text-black p-3 hover:bg-gray-200 transition-colors"
               >
-                ➤
+                <Send size={14} />
               </button>
             </div>
           </motion.div>
@@ -87,4 +97,3 @@ export default function ChatBot() {
     </>
   );
 }
-

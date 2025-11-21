@@ -1,17 +1,15 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-type User = { email: string } | null;
+interface UIStore {
+  isLoginOpen: boolean;
+  openLogin: () => void;
+  closeLogin: () => void;
+  toggleLogin: () => void;
+}
 
-type State = {
-  user: User;
-  setUser: (u: User) => void;
-  theme: "light" | "dark";
-  toggleTheme: () => void;
-};
-
-export const useApp = create<State>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  theme: "light",
-  toggleTheme: () => set((s) => ({ theme: s.theme === "light" ? "dark" : "light" })),
+export const useUIStore = create<UIStore>((set) => ({
+  isLoginOpen: false,
+  openLogin: () => set({ isLoginOpen: true }),
+  closeLogin: () => set({ isLoginOpen: false }),
+  toggleLogin: () => set((state) => ({ isLoginOpen: !state.isLoginOpen })),
 }));
