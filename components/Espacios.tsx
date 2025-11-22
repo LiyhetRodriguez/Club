@@ -8,26 +8,21 @@ const spaces = [
     id: 1,
     title: "MAIN HALL",
     category: "Concert / Gala",
-    image: "/Auditorio.jpg"
+    image: "/millanura1.jpeg"
   },
   {
     id: 2,
     title: "GARDEN",
     category: "Open Air",
-    image: "/kiosco.jpg"
+    image: "/salon1.jpeg"
   },
   {
     id: 3,
     title: "POOL",
     category: "Wet Lounge",
-    image: "/Piscina&Bar.jpg"
+    image: "/salonempresarial1.jpeg"
   },
-  {
-    id: 4,
-    title: "ROOFTOP",
-    category: "Sky Bar",
-    image: "/Terraza.jpg"
-  },
+
 ];
 
 export default function Espacios() {
