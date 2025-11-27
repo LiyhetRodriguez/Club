@@ -2,11 +2,10 @@
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Servicios from "../components/Servicios";
-import Consultas from "../components/Consultas";
 import Espacios from "../components/Espacios";
-import Equipo from "../components/Equipo";
 import Reseñas from "../components/Reseñas";
 import Ubicacion from "../components/Ubicacion";
+import Equipo from "../components/Equipo";
 import Whatsapp from "../components/Whatsapp";
 import ChatBot from "../components/ChatBot";
 import Footer from "../components/Footer";
@@ -19,11 +18,10 @@ export default function Home(){
       <Hero />
       <Servicios />
       <Espacios />
-      <Consultas />
       <Cotizacion />
-      <Equipo />
       <Reseñas />
       <Ubicacion />
+       <Equipo />
       <Footer />
       
       {/* Floating Elements */}

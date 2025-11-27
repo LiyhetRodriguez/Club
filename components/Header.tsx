@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,7 +18,7 @@ export default function Header() {
   const { isLoginOpen, openLogin, closeLogin } = useUIStore();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -27,75 +26,77 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 left-0 w-full z-30 transition-all duration-700 ease-in-out ${
+        className={`fixed top-0 left-0 w-full z-40 transition-all duration-700 ${
           scrolled
-            ? "py-4 bg-black/80 backdrop-blur-xl border-b border-white/5"
-            : "py-8 bg-transparent"
+            ? "bg-black/40 backdrop-blur-lg py-3 border-b border-white/10"
+            : "bg-transparent py-5"
         }`}
       >
         <div className="mx-auto max-w-[1600px] px-8 lg:px-16">
           <div className="flex items-center justify-between">
-
-            {/* Logo */}
-            <a href="#inicio" className="relative group">
+            
+            {/* LOGO */}
+            <a href="#inicio">
               <img
                 src="/logo.png"
                 alt="Club Meta"
-                className={`transition-all duration-500 ${scrolled ? 'h-8' : 'h-10'} w-auto object-contain drop-shadow-lg`}
+                className={`transition-all duration-500 ${
+                  scrolled ? "h-8" : "h-10"
+                } w-auto`}
               />
             </a>
 
-            {/* Menu */}
-            <nav className="hidden md:flex items-center gap-12 mx-auto">
+            {/* MENU DESKTOP */}
+            <nav className="hidden md:flex items-center gap-10 mx-auto">
               {LINKS.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-xs font-bold tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors duration-300"
+                  className="text-xs font-semibold tracking-[0.20em] uppercase text-white/60 hover:text-white transition"
                 >
                   {link.name}
                 </a>
               ))}
             </nav>
 
-            {/* Right Actions */}
+            {/* ACTIONS */}
             <div className="hidden md:flex items-center gap-6">
               <button
                 onClick={openLogin}
-                className="text-xs font-bold tracking-widest uppercase text-gray-400 hover:text-white transition-colors"
+                className="text-xs font-semibold tracking-widest uppercase text-white/60 hover:text-white"
               >
                 Login
               </button>
 
               <a
                 href="#reservas"
-                className="relative px-8 py-3 bg-white text-black text-xs font-black tracking-widest uppercase hover:bg-meta-platinum transition-all duration-300 clip-button hover:scale-105"
+                className="px-6 py-2 bg-white text-black text-xs font-black tracking-widest uppercase hover:bg-gray-200 transition"
               >
                 Reservar
               </a>
             </div>
 
-            {/* Mobile Toggle */}
+            {/* MOBILE TOGGLE */}
             <button
               onClick={() => setOpen(!open)}
-              className="md:hidden text-white relative z-50"
+              className="md:hidden text-white z-50"
             >
-              {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* MENU MÓVIL */}
         <AnimatePresence>
           {open && (
             <motion.div
               initial={{ opacity: 0, y: "-100%" }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: "-100%" }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center"
+              transition={{ duration: 0.45 }}
+              className="fixed inset-0 bg-black flex flex-col items-center justify-center z-40"
             >
-              <ul className="space-y-8 text-center">
+              <ul className="space-y-10 text-center">
                 {LINKS.map((link, i) => (
                   <motion.li
                     key={link.name}
@@ -106,7 +107,7 @@ export default function Header() {
                     <a
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="text-4xl font-black text-white tracking-tighter hover:text-gray-500 transition-colors uppercase"
+                      className="text-4xl font-black text-white hover:text-gray-400"
                     >
                       {link.name}
                     </a>
@@ -114,31 +115,27 @@ export default function Header() {
                 ))}
 
                 <motion.li
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
                 >
                   <button
-                    onClick={() => { setOpen(false); openLogin(); }}
-                    className="text-xl font-bold text-gray-400 hover:text-white uppercase tracking-widest mt-8"
+                    onClick={() => {
+                      setOpen(false);
+                      openLogin();
+                    }}
+                    className="text-xl font-bold text-gray-400 hover:text-white mt-10"
                   >
-                    Login Access
+                    Acceso Miembros
                   </button>
                 </motion.li>
               </ul>
             </motion.div>
           )}
         </AnimatePresence>
-
-        <style jsx>{`
-          .clip-button {
-            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
-          }
-        `}</style>
       </header>
 
       <Login isOpen={isLoginOpen} onClose={closeLogin} />
     </>
   );
 }
-

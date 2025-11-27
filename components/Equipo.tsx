@@ -1,80 +1,83 @@
 "use client";
 import { motion } from "framer-motion";
 
-const equipo = [
-  {
-    nombre: "María F. López",
-    cargo: "Head of Experience",
-    imagen: "/Coordinadora.jpg",
-  },
-  {
-    nombre: "Carlos Rojas",
-    cargo: "Executive Chef",
-    imagen: "/Chef.jpg",
-  },
-  {
-    nombre: "Laura Martínez",
-    cargo: "Concierge Lead",
-    imagen: "/Atencion.jpg",
-  },
-  {
-    nombre: "José Hernández",
-    cargo: "Logistics Director",
-    imagen: "/Supervisor.jpg",
-  },
-];
-
-export default function Equipo() {
+export default function Historia() {
   return (
-    <section id="equipo" className="bg-[#050505] py-32 relative">
-      <div className="max-w-[1600px] mx-auto px-6">
+    <section
+      id="historia"
+      className="
+        relative 
+        py-32 
+        bg-black 
+        overflow-hidden 
+        text-white
+        border-t 
+        border-white/5
+      "
+    >
+      {/* Fondo sutil con ruido */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05]" />
+
+      <motion.h1
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 0.1, scale: 1 }}
+        transition={{ duration: 1.4, ease: "easeOut" }}
+        className="
+          absolute 
+          top-[60%] left-1/2 
+          -translate-x-1/2 -translate-y-1/2
+          text-[12vw]
+          font-black 
+          tracking-tighter 
+          text-white/10 
+          pointer-events-none
+          whitespace-nowrap
+        "
+      >
+        HISTORY
+      </motion.h1>
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6">
         
-        {/* Header */}
-        <div className="mb-24 border-l-2 border-white/20 pl-8">
-            <span className="text-xs font-bold tracking-[0.4em] text-meta-silver uppercase mb-4 block">
-                The Minds
-            </span>
-            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase">
-                Our Team
-            </h2>
+        {/* ENCABEZADO */}
+        <div className="text-center mb-20">
+          <span className="text-xs tracking-[0.35em] text-gray-400 uppercase block mb-4">
+            Nuestra Esencia
+          </span>
+          <h2 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase">
+            Historia & Legado
+          </h2>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
-          {equipo.map((persona, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="group"
-            >
-              {/* Image Container */}
-              <div className="relative overflow-hidden bg-[#101010] aspect-[3/4] mb-6">
-                <div className="absolute inset-0 bg-gray-800 animate-pulse opacity-20" /> {/* Placeholder */}
-                <img
-                  src={persona.imagen}
-                  alt={persona.nombre}
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 brightness-[0.7] saturate-[0.8] group-hover:brightness-100 group-hover:saturate-100"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              </div>
+        {/* CONTENIDO */}
+        <div className="max-w-4xl mx-auto space-y-10 text-gray-300 text-lg leading-relaxed">
+          <p>
+            Club Meta nació como una visión: un espacio donde la arquitectura,
+            la música, la gastronomía y la experiencia humana convergen para
+            crear momentos inolvidables. Desde nuestros inicios, nos propusimos
+            reinventar el concepto de entretenimiento y hospitalidad en Bogotá.
+          </p>
 
-              {/* Info */}
-              <div className="border-t border-white/10 pt-4 group-hover:border-white transition-colors duration-500">
-                <h3 className="text-xl font-bold text-white uppercase tracking-tight mb-1">
-                  {persona.nombre}
-                </h3>
-                <p className="text-xs text-gray-500 uppercase tracking-widest group-hover:text-meta-platinum transition-colors">
-                  {persona.cargo}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+          <p>
+            Inspirados en el brutalismo contemporáneo y la estética minimalista,
+            diseñamos un lugar donde cada detalle —desde la iluminación hasta la
+            acústica— está pensado para generar emociones.  
+          </p>
+
+          <p>
+            A lo largo de los años hemos recibido artistas, creadores,
+            empresarios y visionarios de todo el mundo. Nos hemos consolidado
+            como un punto de encuentro para quienes buscan excelencia, privacidad
+            y una experiencia que trascienda lo convencional.
+          </p>
+
+          <p>
+            Hoy, Club Meta sigue expandiendo su legado con nuevos espacios,
+            propuestas gastronómicas de autor, tecnología inmersiva y una
+            comunidad que entiende que el lujo auténtico está en la
+            experiencia.
+          </p>
         </div>
-
       </div>
     </section>
   );
