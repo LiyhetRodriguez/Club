@@ -5,7 +5,7 @@ import { FaWhatsapp } from "react-icons/fa";
 export default function Whatsapp() {
   return (
     <motion.a
-      href="https://wa.me/573027881505"
+      href="https://wa.me/57312 4350412"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-8 left-8 z-50 group"

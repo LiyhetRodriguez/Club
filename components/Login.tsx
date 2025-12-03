@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight, ArrowUpRight } from "lucide-react";
+import { X, ArrowRight } from "lucide-react";
 
 interface LoginProps {
   isOpen: boolean;
@@ -10,116 +10,130 @@ interface LoginProps {
 }
 
 export default function Login({ isOpen, onClose }: LoginProps) {
-  const [view, setView] = useState<'login' | 'register'>('login');
-
-  // Lock body scroll when open
+  // bloquear scroll cuando el modal está abierto
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => { document.body.style.overflow = 'unset'; };
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* FONDO OSCURO CON FADE RÁPIDO */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={onClose}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[999]"
           />
 
-          {/* Drawer Panel */}
+          {/* PANEL DESLIZANTE RÁPIDO */}
           <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed top-0 right-0 h-full w-full md:w-[500px] bg-[#050505] border-l border-white/10 z-[1000] flex flex-col shadow-2xl"
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="
+              fixed top-0 right-0 h-full 
+              w-full max-w-[360px] sm:max-w-[420px]
+              bg-[#050505] border-l border-white/10 shadow-xl
+              z-[1000] flex flex-col
+            "
           >
-            
-            {/* Header */}
-            <div className="p-8 flex justify-between items-center border-b border-white/10">
-                <h2 className="text-xl font-bold text-white tracking-wider uppercase">Member Access</h2>
-                <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors text-white">
-                    <X size={24} />
-                </button>
+            {/* HEADER */}
+            <div className="p-5 flex justify-between items-center border-b border-white/10">
+              <h2 className="text-sm font-bold text-white tracking-widest uppercase">
+                Acceso de Miembros
+              </h2>
+              <button
+                onClick={onClose}
+                className="p-2 hover:bg-white/10 rounded-full transition text-white"
+              >
+                <X size={20} />
+              </button>
             </div>
 
-            {/* Content */}
-            <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
-                
-                <div className="mb-12">
-                    <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4">
-                        {view === 'login' ? 'WELCOME BACK.' : 'JOIN THE LIST.'}
-                    </h1>
-                    <p className="text-gray-400 text-lg leading-relaxed">
-                        {view === 'login' 
-                            ? "Access your exclusive benefits and manage your reservations." 
-                            : "Apply for membership to unlock priority booking and VIP status."}
-                    </p>
-                </div>
+            {/* CONTENIDO CON TRANSICIÓN SUAVE */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.35, ease: "easeOut", delay: 0.05 }}
+              className="flex-1 p-6 flex flex-col justify-start"
+            >
+              {/* TÍTULOS */}
+              <div className="mb-8 mt-4">
+                <h1 className="text-3xl font-black text-white tracking-tight leading-tight">
+                  Bienvenido de Nuevo
+                </h1>
 
-                <form className="space-y-8">
-                    {view === 'register' && (
-                        <div className="group">
-                            <input 
-                                type="text" 
-                                placeholder="FULL NAME" 
-                                className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-medium focus:border-white outline-none placeholder-gray-600 transition-colors"
-                            />
-                        </div>
-                    )}
-                    
-                    <div className="group">
-                        <input 
-                            type="email" 
-                            placeholder="EMAIL ADDRESS" 
-                            className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-medium focus:border-white outline-none placeholder-gray-600 transition-colors"
-                        />
-                    </div>
-
-                    <div className="group">
-                        <input 
-                            type="password" 
-                            placeholder="PASSWORD" 
-                            className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-medium focus:border-white outline-none placeholder-gray-600 transition-colors"
-                        />
-                    </div>
-
-                    <button className="w-full bg-white text-black h-16 font-black text-lg uppercase tracking-widest hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 mt-8">
-                        {view === 'login' ? 'Enter' : 'Apply Now'}
-                        <ArrowRight size={20} />
-                    </button>
-                </form>
-
-                <div className="mt-12 pt-8 border-t border-white/10 flex justify-between items-center">
-                    <p className="text-sm text-gray-500">
-                        {view === 'login' ? "Don't have an account?" : "Already a member?"}
-                    </p>
-                    <button 
-                        onClick={() => setView(view === 'login' ? 'register' : 'login')}
-                        className="text-sm font-bold text-white uppercase tracking-widest hover:text-gray-300 flex items-center gap-2"
-                    >
-                        {view === 'login' ? 'Register' : 'Log In'} <ArrowUpRight size={14} />
-                    </button>
-                </div>
-
-            </div>
-
-            {/* Footer */}
-            <div className="p-8 bg-[#0A0A0A] border-t border-white/10">
-                <p className="text-xs text-gray-600 text-center uppercase tracking-widest">
-                    Secure Member Portal — Encrypted
+                <p className="mt-3 text-gray-400 text-sm leading-relaxed">
+                  Inicia sesión para gestionar tus reservas y beneficios.
                 </p>
-            </div>
+              </div>
 
+              {/* FORMULARIO */}
+              <form className="space-y-6">
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Correo Electrónico"
+                    className="
+                      w-full bg-transparent border-b border-white/20 
+                      py-3 text-white text-sm 
+                      focus:border-white outline-none placeholder-gray-500
+                      transition-colors
+                    "
+                  />
+                </div>
+
+                <div>
+                  <input
+                    type="password"
+                    placeholder="Contraseña"
+                    className="
+                      w-full bg-transparent border-b border-white/20 
+                      py-3 text-white text-sm 
+                      focus:border-white outline-none placeholder-gray-500
+                      transition-colors
+                    "
+                  />
+                </div>
+
+                {/* BOTÓN */}
+                <button
+                  className="
+                    w-full bg-white text-black 
+                    h-12 font-black text-sm 
+                    uppercase tracking-widest
+                    hover:bg-gray-200 transition
+                    flex items-center justify-center gap-2
+                  "
+                >
+                  Ingresar
+                  <ArrowRight size={16} />
+                </button>
+              </form>
+
+              {/* OLVIDÉ MI CONTRASEÑA */}
+              <div className="mt-10 flex justify-between items-center border-t border-white/10 pt-6">
+                <button className="text-xs font-bold text-white uppercase tracking-widest hover:text-gray-300 transition-colors">
+                  ¿Olvidaste tu contraseña?
+                </button>
+              </div>
+            </motion.div>
+
+            {/* FOOTER */}
+            <div className="p-5 bg-[#0A0A0A] border-t border-white/10">
+              <p className="text-[10px] text-gray-600 text-center uppercase tracking-widest">
+                Portal Seguro — Cifrado SSL
+              </p>
+            </div>
           </motion.div>
         </>
       )}

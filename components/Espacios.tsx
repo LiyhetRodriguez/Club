@@ -1,170 +1,180 @@
 "use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Detalle from "./Detalle";
 
-const spaces = [
+type Space = {
+  id: number;
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+  medidas: string;
+  photos: string[];
+};
+
+const spaces: Space[] = [
   {
     id: 1,
-    title: "Salon Mi Llanura",
-    category: "Concert / Gala",
-    image: "/millanura1.jpeg"
+    title: "Salón Mi Llanura",
+    category: "Eventos sociales",
+    image: "/millanura1.jpeg",
+    description:
+      "Ideal para matrimonios, quince años, grados y eventos sociales que necesitan un ambiente cálido y amplio.",
+    medidas:
+      "Capacidad recomendada: 150–200 personas. Altura libre: 4.5 m. Espacio para tarima, pista de baile y montaje de sonido.",
+    photos: ["/millanura1.jpeg", "/millanura2.jpeg", "/millanura3.jpeg"],
   },
   {
     id: 2,
-    title: "Salon Principal",
-    category: "Open Air",
-    image: "/salon1.jpeg"
+    title: "Salón Principal",
+    category: "Eventos especiales",
+    image: "/salon1.jpeg",
+    description:
+      "Nuestro salón insignia para convenciones, galas, lanzamientos de marca y grandes celebraciones.",
+    medidas:
+      "Capacidad recomendada: 250–350 personas. Posibilidad de montaje tipo auditorio, banquete o coctel.",
+    photos: ["/salon1.jpeg", "/salon2.jpeg", "/salon3.jpeg"],
   },
   {
     id: 3,
-    title: "Salon Empresarial",
-    category: "Wet Lounge",
-    image: "/salonempresarial1.jpeg"
+    title: "Salón Empresarial",
+    category: "Reuniones corporativas",
+    image: "/salonempresarial1.jpeg",
+    description:
+      "Diseñado para reuniones empresariales, capacitaciones, presentaciones y ruedas de negocio.",
+    medidas:
+      "Capacidad recomendada: 60–120 personas según montaje. Incluye puntos eléctricos y área para coffee break.",
+    photos: [
+      "/salonempresarial1.jpeg",
+      "/salonempresarial2.jpeg",
+      "/salonempresarial3.jpeg",
+    ],
   },
 ];
 
 export default function Espacios() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [selectedSpace, setSelectedSpace] = useState<Space | null>(null);
 
   return (
     <section
       id="espacios"
-      className="
-        relative
-        min-h-screen
-        bg-[#080808]
-        text-white
-        overflow-hidden
-      "
+      className="relative bg-[#080808] text-white overflow-hidden py-32"
     >
-
-      {/* --- HEADER AJUSTADO --- */}
-      <div className="relative text-center pt-24 pb-24">
-
-        {/* TEXTO GIGANTE DETRÁS — BAJADO 20PX */}
+      {/* === HEADER ANIMADO === */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="relative text-center mb-20"
+      >
         <h2
           className="
-            absolute
-            top-[67%] left-1/2
+            absolute top-1/2 left-1/2
             -translate-x-1/2 -translate-y-1/2
-            text-[10vw]
-            font-black
-            tracking-tighter
-            leading-none
-            text-white/10
-            whitespace-nowrap
-            select-none
-            pointer-events-none
-            mt-[20px]
+            text-[10vw] font-black tracking-tighter
+            text-white/5 leading-none
+            whitespace-nowrap select-none pointer-events-none
           "
         >
-          SPACES
+          ESPACIOS
         </h2>
 
-        {/* PORTFOLIO + TÍTULO */}
         <div className="relative z-10">
           <span className="text-xs tracking-[0.35em] text-gray-400 uppercase block mb-4">
-            PORTFOLIO
+            PORTAFOLIO
           </span>
 
-          <h2
-            className="
-              text-6xl 
-              md:text-7xl 
-              lg:text-8xl 
-              font-black 
-              tracking-tight
-            "
-          >
+          <h2 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase">
             ESPACIOS
           </h2>
         </div>
-      </div>
+      </motion.div>
 
-      {/* --- GRID DE ESPACIOS --- */}
-      <div className="flex flex-col md:flex-row h-[70vh]">
+      {/* === GRID EXPANDIBLE === */}
+      <div className="max-w-[1600px] mx-auto flex h-[420px] md:h-[520px]">
         {spaces.map((space) => (
-          <motion.div
+          <motion.button
             key={space.id}
+            type="button"
             onHoverStart={() => setHovered(space.id)}
             onHoverEnd={() => setHovered(null)}
-            className="
-              relative
-              flex-1
-              h-full
-              border-r border-white/10
-              transition-all duration-700
-              ease-in-out
-              cursor-pointer
-              group
-              z-20
-            "
-            style={{
-              flex: hovered === space.id ? 3 : 1,
-            }}
+            onClick={() => setSelectedSpace(space)}
+            className={`
+              relative overflow-hidden border-r border-white/10
+              cursor-pointer group text-left transition-all duration-700
+              ${hovered === space.id ? "flex-[3]" : "flex-1"}
+            `}
           >
-            {/* Imagen */}
+            {/* === IMAGEN EXPANDIBLE === */}
             <div
-              className="absolute inset-0 bg-cover bg-center transition-all duration-700"
+              className="
+                absolute inset-0 bg-cover bg-center
+                transition-all duration-700 transform 
+                group-hover:scale-105
+              "
               style={{
                 backgroundImage: `url(${space.image})`,
-                filter: hovered === space.id ? "brightness(0.9)" : "brightness(0.6)",
+                filter:
+                  hovered === space.id
+                    ? "brightness(0.9)"
+                    : "brightness(0.55)",
               }}
             />
 
-            {/* Overlay */}
+            {/* === CAPA OSCURA === */}
             <div
               className={`
-                absolute inset-0
-                transition duration-700
-                ${hovered === space.id ? "bg-black/20" : "bg-black/40"}
+                absolute inset-0 transition-all duration-700
+                ${hovered === space.id ? "bg-black/20" : "bg-black/45"}
               `}
             />
 
-            {/* Contenido Inferior */}
-            <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 bg-gradient-to-t from-black via-black/50 to-transparent">
-              <div className="flex items-end justify-between">
+            {/* === TEXTO ANIMADO === */}
+            <div
+              className="
+                absolute inset-x-0 bottom-0
+                p-6 md:p-8
+                bg-gradient-to-t from-black/95 via-black/70 to-transparent
+                translate-y-full group-hover:translate-y-0
+                transition-transform duration-500
+              "
+            >
+              <p className="text-[11px] font-semibold tracking-[0.25em] text-white/70 uppercase mb-2">
+                {space.category}
+              </p>
 
-                <div className="overflow-hidden">
-                  <p className="text-xs font-bold text-white/60 uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                    {space.category}
-                  </p>
+              <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-4">
+                {space.title}
+              </h3>
 
-                  <h3
-                    className="
-                      text-3xl
-                      md:text-5xl
-                      font-black
-                      uppercase
-                      tracking-tighter
-                      whitespace-nowrap
-                      transform translate-y-10
-                      group-hover:translate-y-0
-                      transition-all duration-500
-                    "
-                  >
-                    {space.title}
-                  </h3>
-                </div>
-
-                <div
-                  className="
-                    opacity-0 group-hover:opacity-100
-                    transition-opacity duration-500 delay-200
-                    bg-white text-black p-3 rounded-full
-                  "
-                >
-                  <ArrowUpRight size={24} />
-                </div>
-
-              </div>
+              <span
+                className="
+                  inline-flex items-center gap-2
+                  px-5 py-2 rounded-full
+                  border border-white/40 bg-white/5
+                  text-[11px] font-semibold tracking-[0.22em] uppercase
+                  group-hover:bg-white group-hover:text-black
+                  transition-colors
+                "
+              >
+                Ver detalles
+                <ArrowUpRight className="w-3 h-3" />
+              </span>
             </div>
-
-          </motion.div>
+          </motion.button>
         ))}
       </div>
 
+      {/* === MODAL DETALLE === */}
+      <Detalle
+        space={selectedSpace}
+        onClose={() => setSelectedSpace(null)}
+      />
     </section>
   );
 }

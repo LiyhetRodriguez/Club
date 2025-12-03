@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 import { Search, Calendar, Clock, Users } from "lucide-react";
 import { useUIStore } from "../lib/store";
-import Particles from "react-tsparticles";
+
+import Particles from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 import { Engine } from "tsparticles-engine";
 import { useCallback } from "react";
@@ -19,7 +20,7 @@ export default function Hero() {
       id="inicio"
       className="
         relative 
-        min-h-[35vh] 
+        min-h-[70vh]
         w-full 
         overflow-hidden 
         bg-cover 
@@ -29,22 +30,25 @@ export default function Hero() {
         sm:pt-28
         md:pt-32
         lg:pt-36
+        pb-16
+        md:pb-24
+        lg:pb-28
       "
       style={{ backgroundImage: "url('/salon1.jpeg')" }}
     >
-      {/* OVERLAYS */}
-      <div className="absolute inset-0 bg-black/75 z-0" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-0" />
+      {/* OVERLAYS – ACLARADOS */}
+      <div className="absolute inset-0 bg-black/40 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent z-0" />
 
       {/* PARTICLES */}
       <Particles
         id="tsparticles"
         init={particlesInit}
-        className="absolute inset-0 z-5"
+        className="absolute inset-0 z-[5]"
         options={{
           particles: {
             color: { value: "#fff" },
-            links: { enable: true, color: "#fff", opacity: 0.35 },
+            links: { enable: true, color: "#fff", opacity: 0.3 },
             move: { enable: true, speed: 1 },
             number: { value: 55 },
             size: { value: { min: 1, max: 3 } },
@@ -53,17 +57,17 @@ export default function Hero() {
       />
 
       {/* CONTENT */}
-      <div className="relative z-10 flex flex-col justify-start items-center px-6 pb-0">
+      <div className="relative z-10 flex flex-col items-center px-6">
 
         {/* TITLES */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
-          className="text-center max-w-4xl mx-auto mb-14"
+          className="text-center max-w-4xl mx-auto mb-10 md:mb-12 lg:mb-14"
         >
           <h2 className="text-xs md:text-sm text-white/70 tracking-[0.35em] uppercase mb-5">
-            Bogotá, Colombia
+            Villavicencio, Colombia
           </h2>
 
           <h1 className="text-7xl md:text-8xl lg:text-[9rem] font-semibold text-white leading-[0.85]">
@@ -76,6 +80,8 @@ export default function Hero() {
 
           {/* BUTTONS */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-5">
+
+            {/* LOGIN */}
             <button
               onClick={openLogin}
               className="px-10 py-4 h-14 bg-white text-black text-sm font-bold tracking-widest uppercase hover:bg-gray-300 transition rounded"
@@ -83,11 +89,17 @@ export default function Hero() {
               Acceso Miembros
             </button>
 
+            {/* SCROLL TO ESPACIOS */}
             <button
+              onClick={() => {
+                const target = document.getElementById("espacios");
+                target?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="px-10 py-4 h-14 border border-white/40 text-white text-sm font-semibold tracking-widest uppercase hover:bg-white/10 backdrop-blur-sm transition rounded"
             >
               Explorar Espacios
             </button>
+
           </div>
         </motion.div>
 
@@ -96,7 +108,13 @@ export default function Hero() {
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="w-full max-w-4xl mt-4"
+          className="
+            w-full 
+            max-w-4xl
+            mt-4
+            md:mt-6
+            lg:mt-8
+          "
         >
           <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-xl p-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">

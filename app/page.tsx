@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Servicios from "../components/Servicios";
 import Espacios from "../components/Espacios";
-import Reseñas from "../components/Reseñas";
 import Ubicacion from "../components/Ubicacion";
 import Equipo from "../components/Equipo";
 import Whatsapp from "../components/Whatsapp";
@@ -19,7 +18,6 @@ export default function Home(){
       <Servicios />
       <Espacios />
       <Cotizacion />
-      <Reseñas />
       <Ubicacion />
        <Equipo />
       <Footer />

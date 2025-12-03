@@ -1,52 +1,97 @@
+/* ==========================================================
+   TAILWIND
+   ========================================================== */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* === Tipografía principal === */
+/* ==========================================================
+   TIPOGRAFÍA
+   ========================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Anicon+Sans:wght@300;400;500;600;700;900&display=swap');
 
+/* ==========================================================
+   VARIABLES
+   ========================================================== */
 :root {
   --bg-color: #000000;
   --text-main: #F5F5F5;
   --accent: #FFFFFF;
 }
 
-/* === Base === */
+/* ==========================================================
+   ⭐ SCROLL PRO — SUAVIDAD MÁXIMA
+   ========================================================== */
+
+/* Scroll suave + inercia estilo iPhone */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain !important;
 }
 
+/* El cuerpo del sitio fluye más estable */
 body {
   font-family: 'Anicon Sans', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
   letter-spacing: 0.02em;
+
   overflow-x: hidden;
+  scroll-behavior: smooth !important;
+
+  /* Suavidad adicional: las secciones se acomodan */
+  scroll-snap-type: y proximity;
+
+  /* Suavizado visual */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* === Custom Selection === */
+/* Todas las capas mantienen la suavidad */
+* {
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Las secciones quedan equilibradas al hacer scroll */
+section {
+  scroll-snap-align: start;
+  scroll-margin-top: 80px; /* evita saltos bruscos */
+}
+
+/* ==========================================================
+   SELECCIÓN DE TEXTO
+   ========================================================== */
 ::selection {
   background: #ffffff;
   color: #000000;
 }
 
-/* === Scrollbar === */
+/* ==========================================================
+   SCROLLBAR PERSONALIZADA
+   ========================================================== */
 ::-webkit-scrollbar {
   width: 4px;
 }
+
 ::-webkit-scrollbar-track {
   background: #000;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #333;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #fff;
 }
 
-/* === Utilities === */
+/* ==========================================================
+   UTILIDADES
+   ========================================================== */
 .text-balance {
   text-wrap: balance;
 }

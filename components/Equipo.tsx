@@ -1,83 +1,91 @@
 "use client";
+
 import { motion } from "framer-motion";
 
 export default function Historia() {
   return (
     <section
       id="historia"
-      className="
-        relative 
-        py-32 
-        bg-black 
-        overflow-hidden 
-        text-white
-        border-t 
-        border-white/5
-      "
+      className="relative py-32 bg-black text-white overflow-hidden"
     >
-      {/* Fondo sutil con ruido */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05]" />
-
-      <motion.h1
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 0.1, scale: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
-        className="
-          absolute 
-          top-[60%] left-1/2 
-          -translate-x-1/2 -translate-y-1/2
-          text-[12vw]
-          font-black 
-          tracking-tighter 
-          text-white/10 
-          pointer-events-none
-          whitespace-nowrap
-        "
+      {/* TÍTULO IGUAL A LOS OTROS */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative text-center mb-24"
       >
-        HISTORY
-      </motion.h1>
+        {/* TEXTO GIGANTE DETRÁS */}
+        <h2
+          className="
+            absolute top-1/2 left-1/2 
+            -translate-x-1/2 -translate-y-1/2
+            text-[10vw] font-black tracking-tighter 
+            text-white/5 select-none pointer-events-none uppercase
+          "
+        >
+          HISTORIA
+        </h2>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6">
-        
-        {/* ENCABEZADO */}
-        <div className="text-center mb-20">
+        <div className="relative z-10">
           <span className="text-xs tracking-[0.35em] text-gray-400 uppercase block mb-4">
             Nuestra Esencia
           </span>
+
           <h2 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase">
-            Historia & Legado
+            HISTORIA & LEGADO
           </h2>
         </div>
+      </motion.div>
 
-        {/* CONTENIDO */}
-        <div className="max-w-4xl mx-auto space-y-10 text-gray-300 text-lg leading-relaxed">
+      {/* CONTENIDO */}
+      <div className="relative z-10 max-w-[1500px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+
+        {/* TEXTO A LA IZQUIERDA */}
+        <div className="space-y-8 text-gray-300 text-lg leading-relaxed">
+
           <p>
-            Club Meta nació como una visión: un espacio donde la arquitectura,
-            la música, la gastronomía y la experiencia humana convergen para
-            crear momentos inolvidables. Desde nuestros inicios, nos propusimos
-            reinventar el concepto de entretenimiento y hospitalidad en Bogotá.
+            La corporación Club El Meta nació en 1940, basa sus principios en la hermandad, 
+            la solidaridad y la amistad, pilares estos que hemos cultivado a través de los años.
           </p>
 
           <p>
-            Inspirados en el brutalismo contemporáneo y la estética minimalista,
-            diseñamos un lugar donde cada detalle —desde la iluminación hasta la
-            acústica— está pensado para generar emociones.  
+            Nuestras instalaciones son las más completas de la región por su ubicación, 
+            exclusividad, confort y seguridad; nuestros escenarios deportivos ofrecen diversas 
+            alternativas de actividad física.
           </p>
 
           <p>
-            A lo largo de los años hemos recibido artistas, creadores,
-            empresarios y visionarios de todo el mundo. Nos hemos consolidado
-            como un punto de encuentro para quienes buscan excelencia, privacidad
-            y una experiencia que trascienda lo convencional.
+            Entrar a la Corporación Club El Meta es entrar en un paraíso en medio del trajín 
+            diario. Luego de una jornada extenuante, en nuestras instalaciones es posible 
+            relajarse con los vapores terapéuticos del sauna, hacer ejercicio en el gimnasio, 
+            explorar la vanidad a través de esteticistas profesionales, disfrutar un buen licor 
+            en el bar, degustar los mejores productos de la cafetería o restaurante, o simplemente 
+            desconectarse admirando la espectacular vista de nuestros jardines.
           </p>
 
           <p>
-            Hoy, Club Meta sigue expandiendo su legado con nuevos espacios,
-            propuestas gastronómicas de autor, tecnología inmersiva y una
-            comunidad que entiende que el lujo auténtico está en la
-            experiencia.
+            A lo largo de los años hemos recibido familias, empresarios, deportistas y visitantes 
+            de todo el país. Hoy seguimos consolidándonos como un punto de encuentro que combina 
+            tradición, confort y experiencias memorables.
           </p>
         </div>
+
+        {/* IMAGEN PEQUEÑA — SOLO EN MD Y DESKTOP */}
+        <motion.div
+          initial={{ opacity: 0, x: 60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="
+            hidden md:block 
+            w-full h-[420px] 
+            rounded-2xl overflow-hidden shadow-2xl 
+            bg-cover bg-center
+          "
+          style={{
+            backgroundImage: "url('/historia.jpg')", // ⬅️ AQUÍ VA TU IMAGEN PEQUEÑA
+          }}
+        />
       </div>
     </section>
   );

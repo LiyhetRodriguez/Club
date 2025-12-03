@@ -17,7 +17,7 @@ const servicios = [
   },
   {
     icono: <Wine size={32} />,
-    titulo: "Back bar",
+    titulo: "Bar",
     texto: "Barra signature con licores premium y diseño molecular.",
     fondo: "/bar.jpg",
   },
